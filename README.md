@@ -35,16 +35,17 @@ package com.sqlstream.utility.http;
 Options can be provided as a CURSOR (so can be extracted from a source table or file that
 can be configured appropriately - for example with different URLs in development and production.
 
-|Option|Description|Default|
-|"URL"|HTTP URL|Text|none|
-|"USERNAME"|Basic authentication user name|Text|No authentication|
-|"PASSWORD"|Basic authentication password|Text|No password|
-|"USER-AGENT"|User agent|Text|"HttpPost/1.0"|
-|"CONTENT-TYPE"|Content type|Text|"application/json"|
-|"DO-POST"|Whether to actually call the api|Boolean|true|
-|"DO-PASSTHROUGH"|Whether to pass through the source data|Boolean|true|
-|"BATCHSIZE"|Maximumn number rows to batch together; 0 means no batching|Integer|0|
-|"TIMEOUT-MILLIS"|Maximum delay waiting for more rows to fill a batch (ms)|Integer|1000|
+Option|Description|Default
+----- | --------- | -----
+"URL"|HTTP URL|Text|none
+"USERNAME"|Basic authentication user name|Text|No authentication
+"PASSWORD"|Basic authentication password|Text|No password
+"USER-AGENT"|User agent|Text|"HttpPost/1.0"
+"CONTENT-TYPE"|Content type|Text|"application/json"
+"DO-POST"|Whether to actually call the api|Boolean|true
+"DO-PASSTHROUGH"|Whether to pass through the source data|Boolean|true
+"BATCHSIZE"|Maximumn number rows to batch together; 0 means no batching|Integer|0
+"TIMEOUT-MILLIS"|Maximum delay waiting for more rows to fill a batch (ms)|Integer|1000
 
 
 
