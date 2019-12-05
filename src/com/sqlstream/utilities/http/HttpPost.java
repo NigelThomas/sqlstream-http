@@ -19,8 +19,6 @@ import com.sqlstream.jdbc.StreamingResultSet.RowEvent;
 import com.sqlstream.jdbc.TimeoutException;
 import com.sqlstream.plugin.impl.AbstractBaseUdx;
 
-//import net.sf.farrago.jdbc.FarragoJdbcUtil;
-
 import java.util.concurrent.TimeUnit;
 
 import com.google.gson.JsonElement;
@@ -82,14 +80,14 @@ public class HttpPost
      *    LANGUAGE JAVA
      *    PARAMETER STYLE SYSTEM DEFINED JAVA
      *    NO SQL
-     *    EXTERNAL NAME 'class com.sqlstream.plugin.JsonFormatter.jsonFormatter';
+     *    EXTERNAL NAME 'class com.sqlstream.utilities.http.HttpPost.httpPost';
      * ;
      *
      * @param inputRows streaming input
      * @param results are the result stream
      * @throws SQLException metadata exceptions
      */
-    public static void HttpPost(
+    public static void httpPost(
             ResultSet inputRows,
             ResultSet optionRows,
             String postDataColumnName,
@@ -127,6 +125,8 @@ public class HttpPost
 
         ResultSetMetaData inputMetaData;
 
+        // options and their defaults
+
         boolean doPost = true;
         boolean doPassthrough = true;
         String urlString = null;
@@ -134,6 +134,7 @@ public class HttpPost
         String password = null;
         String userAgent = "HttpPost/1.0";
         String contentType = "application/json";
+        String dummyResponse = "{\"response\":\"dummy response\"}";
 
 
         int postDataColumnIdx;
@@ -148,7 +149,7 @@ public class HttpPost
         static Verifier verifier = new Verifier();
 
         int maxBatchSize = 0;       // 0 => no batching, 1 => a batch (array) of 1
-        long timeoutMillis;
+        long timeoutMillis = 1000;
 
         int nextRow = 0;
         StringBuilder rowbuffer;
@@ -321,6 +322,11 @@ public class HttpPost
                 if (responseData != null) {
                     out.setString(httpResponseColumnIdx, responseData);
                 }
+            } else {
+                // issue dummy response
+                out.setInt(httpResultColumnIdx, 200);
+                out.setString(batchPostColumnIdx, json);
+                out.setString(httpResponseColumnIdx, dummyResponse);
             }
 
             out.executeUpdate();
@@ -399,6 +405,10 @@ public class HttpPost
 
                     case "TIMEOUT-MILLIS":
                         timeoutMillis = getInteger(optionValue);
+                        break;
+
+                    case "DUMMY-RESPONSE":
+                        dummyResponse = optionValue;
                         break;
 
                     default:

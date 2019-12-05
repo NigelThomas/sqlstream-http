@@ -37,16 +37,16 @@ can be configured appropriately - for example with different URLs in development
 
 Option|Description|Default
 ----- | --------- | -----
-"URL"|HTTP URL|Text|none
-"USERNAME"|Basic authentication user name|Text|No authentication
-"PASSWORD"|Basic authentication password|Text|No password
-"USER-AGENT"|User agent|Text|"HttpPost/1.0"
-"CONTENT-TYPE"|Content type|Text|"application/json"
-"DO-POST"|Whether to actually call the api|Boolean|true
-"DO-PASSTHROUGH"|Whether to pass through the source data|Boolean|true
-"BATCHSIZE"|Maximumn number rows to batch together; 0 means no batching|Integer|0
-"TIMEOUT-MILLIS"|Maximum delay waiting for more rows to fill a batch (ms)|Integer|1000
-
+URL|HTTP URL|Text|none - option must be supplied
+USERNAME|Basic authentication user name|Text|null - no authentication
+PASSWORD|Basic authentication password|Text|null
+USER-AGENT|User agent|Text|`HttpPost/1.0`
+CONTENT-TYPE|Content type|Text|`application/json`
+DO-POST|Whether to actually call the api|Boolean|`true`
+DO-PASSTHROUGH|Whether to pass through the source data|Boolean|`true`
+BATCHSIZE|Maximumn number rows to batch together; 0 means no batching|Integer|`0`
+TIMEOUT-MILLIS|Maximum delay waiting for more rows to fill a batch (ms)|Integer|`1000`
+DUMMY-RESPONSE|response to issue (with result code 200) if DO-POST is false|Text|`{"response":"dummy response"}`
 
 
 
