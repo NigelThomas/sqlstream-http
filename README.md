@@ -35,8 +35,8 @@ package com.sqlstream.utility.http;
 Options can be provided as a CURSOR (so can be extracted from a source table or file that
 can be configured appropriately - for example with different URLs in development and production.
 
-Option|Description|Default
------ | --------- | -----
+Option|Description|Type|Default|
+----- | --------- | ----- | -----
 URL|HTTP URL|Text|none - option must be supplied
 USERNAME|Basic authentication user name|Text|null - no authentication
 PASSWORD|Basic authentication password|Text|null
