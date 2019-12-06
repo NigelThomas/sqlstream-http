@@ -1,9 +1,8 @@
 /*
-// $Id: //depot/customers/rubicon/anodot/src/com/sqlstream/utility/AnodotPlugin/HttpPost.java#1 $
 // Copyright (C) 2014-2019 SQLstream, Inc.
 */
 
-package com.sqlstream.utility.http;
+package com.sqlstream.utilities.http;
 
 import java.io.*;
 import java.sql.*;
@@ -241,22 +240,22 @@ public class HttpPost
                 // log the header responses
                 // TODO make these a JSON array in another column?
 
-                JsonObject jsonHeader = new JsonObject();
+                // JsonObject jsonHeader = new JsonObject();
 
-                for (int n = 1; n < 1000; n++) {
-                    String hfk = conn.getHeaderFieldKey(n);
-                    if (hfk == null) break;
+                // for (int n = 1; n < 1000; n++) {
+                //     String hfk = conn.getHeaderFieldKey(n);
+                //     if (hfk == null) break;
 
-                    String value = conn.getHeaderField(n);
-                    if (value == null) {
-                        tracer.info(hfk);
-                        continue;
-                    }
+                //     String value = conn.getHeaderField(n);
+                //     if (value == null) {
+                //         tracer.info(hfk);
+                //         continue;
+                //     }
 
-                    tracer.info(hfk+" : "+ value);
-                    jsonHeader.addProperty(hfk,value);
+                //     tracer.info(hfk+" : "+ value);
+                //     jsonHeader.addProperty(hfk,value);
 
-                }
+                // }
 
                 if (responseCode < 300) {
                     // get response if there is one
@@ -273,8 +272,8 @@ public class HttpPost
                     tracer.info("Response: " + response);
 
                     this.responseData = response.toString();
-                } else {
-                    this.responseData = jsonHeader.toString();
+//                } else {
+//                    this.responseData = jsonHeader.toString();
                 }
 
 
@@ -368,8 +367,10 @@ public class HttpPost
 
             while (optionRows.next()) {
                 // read and parse options
-                String optionName = optionRows.getString(1);
-                String optionValue = optionRows.getString(2);
+                // strip off any leading and especially trailing spaces that may be left by options view
+
+                String optionName = optionRows.getString(1).trim();
+                String optionValue = optionRows.getString(2).trim();
 
                 switch (optionName.toUpperCase()) {
                     case "URL":
@@ -412,10 +413,10 @@ public class HttpPost
                         break;
 
                     default:
-                        tracer.warning("Unrecognized option " + optionName + ": " + optionValue);
+                        tracer.warning("Unrecognized option \"" + optionName + "\"='" + optionValue+"'");
                         continue;
                 }
-                tracer.fine("Parsed option " + optionName + "=" + optionValue);
+                tracer.fine("Parsed option \"" + optionName + "\"='" + optionValue+"'");
             }
         }
 
